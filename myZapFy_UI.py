@@ -39,6 +39,12 @@ screen1 = [
 # Main screen (MyZapFy)
 screen2 = [
     [sg.Text('Welcome to MyZapFy!')],
+    [sg.Text('Please enter your OpenAI API Key')],
+    [sg.Input(key='OpenAI API Key')],
+    [sg.Multiline(size=(80,20), key='text')],
+    [sg.Text('Please have your WhatsApp Online')],
+    [sg.Text('Click below to capture WhatsApp QR Code')],
+    [sg.Button('Capture QR Code!')]
 ]
 
 window1 = sg.Window('MyZapFy', layout = screen1)
