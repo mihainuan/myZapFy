@@ -34,7 +34,7 @@ client_a = 'Por favor, responda a mensagem do cliente com base no próximo texto
 client_copy = 'Os clientes que comprarem nesse mês de junho só paga a primeira Mensal Em agosto, aproveitem a promoção, agende uma visita 719 8451 5414'
 question = client_q + client_a + client_copy
 
-def myZapFy():
+def myZapFy():  
     try:
         # 1) Getting Notifications and Double-Clicking in notified contact
         green_icon_unread = driver.find_element(By.CLASS_NAME, ball_notification)
@@ -89,31 +89,36 @@ def myZapFy():
     except:
         print("Waiting for notifications...")
 
+logo = sg.Image(filename='myZapFy.png', key='-IMAGE-', size=(100,100))
+logo1 = sg.Image(filename='myZapFy.png', key='-IMAGE1-', size=(100,100))
+
+
 # First screen (password login)
 screen1 = [
+    [sg.Column([[logo]], justification='center')],
     [sg.Text('YOUR PASSWORD')],
-    [sg.Input(key='password', password_char='*')],
-    [sg.Button('Login')]
+    [sg.Input(key='password', password_char='*', enable_events=True)],
+    [sg.Button('Login', bind_return_key=True)],
+    [sg.Text('', key='err_msg')]
 ]
 
 # Main screen (MyZapFy)
 screen2 = [
+    [sg.Column([[logo1]], justification='center')],
     [sg.Text('Welcome to MyZapFy!')],
     [sg.Text('Please enter your OpenAI API Key')],
     [sg.Input(key='openaiapi')],
     [sg.Multiline(size=(80,20), key='text')],
-    [sg.Text('Please have your WhatsApp Online')],
-    [sg.Text('Click below to capture WhatsApp QR Code')],
-    [sg.Button('Capture QR Code!')]
+    [sg.Text('Please have your WhatsApp Online', enable_events=True)],
+    [sg.Text('Click below to capture WhatsApp QR Code',enable_events=True)],
+    [sg.Button('Capture QR Code!', bind_return_key=True)]
 ]
 
-window1 = sg.Window('MyZapFy', layout = screen1)
-window2 = sg.Window('MyZapFy', layout = screen2)
+window1 = sg.Window('MyZapFy Login', layout = screen1)
+window2 = sg.Window('MyZapFy Main', layout = screen2)
 
 while True:
     event, values = window1.read()
-    if event == sg.WIN_CLOSED:
-        break
     if event == 'Login':
         senha = values['password']
         if senha == token3:
@@ -131,3 +136,7 @@ while True:
                 time.sleep(5)
                 while True:
                     myZapFy()
+            if event2 == sg.WIN_CLOSED:
+                break
+        else:
+            window1['err_msg'].update('ACCESS DENIED!',text_color='red')
