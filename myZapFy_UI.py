@@ -21,7 +21,7 @@ screen1 = [
 ]
 
 
-window1 = sg.Window('ZapBOT', layout = screen1)
+window1 = sg.Window('MyZapFy', layout = screen1)
 
 while True:
     event, values = window1.read()
